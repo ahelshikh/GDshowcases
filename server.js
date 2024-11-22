@@ -109,6 +109,23 @@ app.get('/api/levels', async (req, res) => {
     }
   });
 
+  // Clean URLs for main pages
+app.get('/gallery', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/upload', (req, res) => {
+  res.sendFile(path.join(__dirname, 'upload.html'));
+});
+
+// Redirect old URLs to new ones
+app.get('/index.html', (req, res) => {
+  res.redirect(301, '/gallery');
+});
+
+app.get('/upload.html', (req, res) => {
+  res.redirect(301, '/upload');
+});
 app.use(express.static(__dirname));
 
 // Handle authentication
