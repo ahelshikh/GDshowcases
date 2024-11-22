@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Level/Layout</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Upload Your Geometry Dash Level/Layout</h1>
+        <button id="back-button" onclick="location.href='index.html'">Back to Showcases</button>
+    </header>
+
+    <main class="upload-page">
+        <h2 class="form-title">Level Form</h2>
+
+        <div id="formMessage" style="display: none; color: green; font-weight: bold; text-align: center;"></div>
+
+        <form id="uploadForm">
+            <div class="info-circle">i
+                <span class="tooltip-text">
+                    For Layout submissions, a YouTube video link is required. This is because layouts have an emphasis on
+                    gameplay.
+                    <br><br>All submissions must include at least 1 image.
+                    <br><br>If you make a mistake or would like to edit your submission in any way, don't resubmit. Contact
+                    me on Discord.
+                    <br>Username: Wazaply.
+                </span>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="level" name="type" value="level" required onclick="toggleVideoRequirement()">
+                <label for="level">Level</label>
+
+                <input type="radio" id="layout" name="type" value="layout" required onclick="toggleVideoRequirement()">
+                <label for="layout">Layout</label>
+            </div>
+
+            <label for="title">Level Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="creator">Creator Name:</label>
+            <input type="text" id="creator" name="creator" required>
+
+            <label for="id">Level ID:</label>
+            <input type="text" id="id" name="id" required>
+
+            <label for="video" id="videoLabel">YouTube Video Link (optional):</label>
+            <input type="url" id="video" name="video">
+
+            <label for="level-images">Level Images (Up to 5 images, upload all at once):</label>
+            <input type="file" id="level-images" name="images" accept="image/jpeg,image/png,image/gif" multiple
+                required>
+            <div id="image-previews" class="image-previews"></div>
+            </div>
+
+            <label for="difficulty">Difficulty Estimate:</label>
+            <div class="dropdown-container">
+                <select id="difficulty" name="difficulty" required>
+                    <option value="" disabled selected>Select Difficulty</option>
+                    <option value="auto">Auto</option>
+                    <option value="easy">Easy</option>
+                    <option value="normal">Normal</option>
+                    <option value="hard">Hard</option>
+                    <option value="harder">Harder</option>
+                    <option value="insane">Insane</option>
+                    <option value="easy demon">Easy Demon</option>
+                    <option value="medium demon">Medium Demon</option>
+                    <option value="hard demon">Hard Demon</option>
+                    <option value="insane demon">Insane Demon</option>
+                    <option value="extreme demon">Extreme Demon: unverified</option>
+                    <option value="extreme demon">Extreme Demon: verified</option>
+                    <option value="impossible level">Impossible Level</option>
+                </select>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+
+
+            <button type="submit">Submit Level</button>
+        </form>
+    </main>
+
+    <script>
+        function toggleVideoRequirement() {
+            const videoInput = document.getElementById('video');
+            const videoLabel = document.getElementById('videoLabel');
+            const isLayout = document.getElementById('layout').checked;
+
+            if (isLayout) {
+                videoInput.required = true;
+                videoLabel.textContent = "YouTube Video Link (required):";
+            } else {
+                videoInput.required = false;
+                videoLabel.textContent = "YouTube Video Link (optional):";
+            }
+        }
+
+        function validateForm() {
+            const isLayout = document.getElementById('layout').checked;
+            const video = document.getElementById('video').value;
+            const images = document.getElementById('level-images').files;
+            const messageDiv = document.getElementById('formMessage');
+
+            if (isLayout && !video) {
+                alert("For layout submissions, a YouTube video link is required.");
+                return false;
+            }
+
+            if (images.length === 0) {
+                alert("Please provide an image.");
+                return false;
+            }
+
+            if (images.length > 5) {
+                alert("You can only upload up to 5 images.");
+                return false;
+            }
+            messageDiv.textContent = "Preparing submission...";
+            messageDiv.style.display = 'block';
+            return true;
+        }
+    </script>
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); 
+
+            if (!validateForm()) {
+                return;
+            }
+
+            const formData = new FormData(document.getElementById('uploadForm'));
+            const messageDiv = document.getElementById('formMessage');
+
+            messageDiv.textContent = "Submitting your level...";
+            messageDiv.style.display = 'block';
+            messageDiv.style.color = 'blue';
+
+            try {
+                const response = await fetch('/api/levels', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageDiv.textContent = "Level submitted successfully!";
+                    messageDiv.style.color = 'green';
+                    event.target.reset();
+                } else {
+                    throw new Error(result.error || 'Failed to submit level.');
+                }
+            } catch (error) {
+                console.error('Error submitting level:', error);
+                messageDiv.textContent = error.message;
+                messageDiv.style.color = 'red';
+            } finally {
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 3000); 
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometry Dash Gallery</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Geometry Dash Showcases</h1>
+        <nav>
+            <button onclick="filterGallery('level')">View Levels</button>
+            <button onclick="filterGallery('layout')">View Layouts</button>
+            <input type="text" id="searchBox" placeholder="Search by Title or Creator" oninput="searchLevels()">
+        </nav>
+
+        <button id="dashboard-button" onclick="enterDashboard()"></button>
+
+        <button id="upload-button" onclick="location.href='upload.html'">Upload your Level</button>
+    </header>
+    
+    <script>
+        // Function to prompt for a password before allowing access to the dashboard
+        function enterDashboard() {
+            const password = prompt("If you're not Wazaply, go back!!! If you're Wazaply, enter the password:");
+
+            fetch('/authenticate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ password: password })
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert('Incorrect password');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        }
+        </script>
+
+    <section id="gallery">
+
+    </section>
+
+    <script src="js/scripts.js"></script>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal()">&times;</button>
+            <h2 id="modal-title"></h2>
+            <img id="modal-image" alt="Level thumbnail">
+            <p id="modal-creator"></p>
+            <p id="modal-id"></p>
+            <p id="modal-video">Video link: None</p>
+        </div>
+    </div>
+</body>
+</html>
