@@ -929,6 +929,27 @@ body {
     padding: 0.4rem 0.8rem;
 }
 
+.modal-content .level-type {
+    text-align: left;
+    margin: 0.5rem 0;
+    font-size: 1.3rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.level-details .level-type {
+    text-align: center;
+    margin: 0.2rem 0;
+    font-size: 1.1rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.level-details .level-title {
+    font-size: 1.6rem;
+    margin: 0.2rem 0; /* Reduced margin */
+}
+
 @media (max-width: 768px) {
     #upload-button {
         right: 0.5rem;

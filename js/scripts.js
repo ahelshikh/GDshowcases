@@ -39,6 +39,7 @@ function displayLevels(levels) {
         levelCard.innerHTML += `
             <div class="level-details">
                 <h2 class="level-title">${level.title}</h2>
+                <p class="level-type">${capitalizeWords(level.type || 'Unknown')}</p>
                 <p class="level-meta"><span class="level-meta-title">By:</span> ${level.creator}</p>
                 <p class="level-meta"><span class="level-meta-title">Difficulty:</span> ${capitalizeWords(level.difficulty || 'Unknown')}</p>
                 <p class="level-meta"><span class="level-meta-title">ID:</span> ${level.id}</p>
@@ -48,6 +49,7 @@ function displayLevels(levels) {
         gallery.appendChild(levelCard);
     });
 }
+
 
 // Change the displayed image in modal
 function navigateModalImage(event, id, direction) {
@@ -181,6 +183,7 @@ function openGalleryModal(level) {
     modalContent.innerHTML = `
         <span class="close" onclick="closeModal()">×</span>
         <h2 id="modal-title">${level.title || 'No title available'}</h2>
+        <p class="level-type">${capitalizeWords(level.type || 'Unknown')}</p>
         
         <p id="modal-creator"><span class="level-meta-title">Created by:</span> ${level.creator || 'Unknown'}</p>
         <p id="modal-difficulty"><span class="level-meta-title">Difficulty:</span> ${capitalizeWords(level.difficulty || 'Unknown')}</p>
@@ -223,6 +226,7 @@ function openGalleryModal(level) {
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
 }
+
 
 const submissionList = document.getElementById('submission-list');
 let submissions = [];
@@ -326,6 +330,7 @@ function openDashboardModal(submission) {
     modalContent.innerHTML = `
         <span class="close" onclick="closeModal()">×</span>
         <h2 id="modal-title">${submission.title || 'No title available'}</h2>
+        <p class="level-type">${capitalizeWords(submission.type || 'Unknown')}</p>
         
         <p id="modal-creator"><span class="level-meta-title">Created by:</span> ${submission.creator || 'Unknown'}</p>
         <p id="modal-difficulty"><span class="level-meta-title">Difficulty:</span> ${capitalizeWords(submission.difficulty || 'Unknown')}</p>
@@ -376,6 +381,7 @@ function openDashboardModal(submission) {
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
 }
+
 
 
 async function deleteSubmission(levelId) {
