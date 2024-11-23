@@ -132,30 +132,28 @@ async function loadLevels() {
 // Filter displayed levels by type
 function filterGallery(type) {
     const buttons = document.querySelectorAll('header button');
+    const activeButton = document.querySelector(`header button.active`);
 
-    if (activeFilter === type) {
+    if (activeButton && activeButton.getAttribute('onclick') === `filterGallery('${type}')`) {
 
-        buttons.forEach(button => button.classList.remove('active'));
+        activeButton.classList.remove('active');
 
-        activeFilter = null; 
-
-        const acceptedLevels = levels.filter(level => level.status === 'accepted');
-        displayLevels(acceptedLevels);
+        displayLevels(levels.filter(level => level.status === 'accepted'));
         return;
     }
 
     buttons.forEach(button => button.classList.remove('active'));
 
-    if (type === 'levels') {
-        document.querySelector('button[onclick="filterGallery(\'levels\')"]').classList.add('active');
-    } else if (type === 'layouts') {
-        document.querySelector('button[onclick="filterGallery(\'layouts\')"]').classList.add('active');
+    if (type === 'level') {
+        document.querySelector('button[onclick="filterGallery(\'level\')"]').classList.add('active');
+    } else if (type === 'layout') {
+        document.querySelector('button[onclick="filterGallery(\'layout\')"]').classList.add('active');
     }
 
-    activeFilter = type;
-    const filtered = levels.filter(level => level.type === type && level.status === 'accepted');
-    displayLevels(filtered);
+    const filteredLevels = levels.filter(level => level.type === type && level.status === 'accepted');
+    displayLevels(filteredLevels);
 }
+
 
 function capitalizeWords(str) {
     return str.replace(/\b\w/g, char => char.toUpperCase());
