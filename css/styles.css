@@ -7,6 +7,7 @@ body {
     color: #333;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
 }
 
 /* HEADER (Shared between pages) */
@@ -20,6 +21,9 @@ header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    will-change: transform, height;
+    min-height: 4rem;
+    transition: all 0.3s ease-in-out; /* Smooth transition */
 }
 
 header nav {
@@ -384,21 +388,6 @@ input[type="file"] {
 
 .submission-card p:last-child {
     text-align: right;
-}
-
-#dashboard-button {
-    position: absolute;
-    top: 7rem;
-    left: 0rem;
-    background-color: #1f1f1f;
-    color: white;
-    border: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%; 
-    padding: 0;
-    cursor: pointer;
-
 }
 
 #upload-button {
@@ -949,6 +938,78 @@ body {
     font-size: 1.6rem;
     margin: 0.2rem 0; /* Reduced margin */
 }
+
+header.shrink {
+    padding: 0.5rem 2rem; /* Reduced padding */
+    font-size: 1.5rem; /* Reduced font size for header */
+    min-height: 3rem;
+}
+
+header h1 {
+    transition: font-size 0.3s ease-in-out, margin 0.3s ease-in-out; /* Smooth title change */
+}
+
+header.shrink h1 {
+    font-size: 1.2rem; /* Title shrinks */
+    margin: 0; /* Remove extra spacing */
+}
+
+header nav {
+    transition: margin-top 0.3s ease-in-out; /* Smooth nav adjustment */
+}
+
+header.shrink nav {
+    margin-top: 0.5rem; /* Adjusted position for nav */
+}
+
+header button,
+header input {
+    transition: all 0.3s ease-in-out; /* Smooth resize for buttons and input */
+}
+
+header.shrink button,
+header.shrink input {
+    padding: 0.4rem 1rem; /* Smaller buttons and search bar */
+    font-size: 0.9rem; /* Adjust font size */
+}
+
+#upload-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease-in-out; /* Smooth positioning and sizing */
+}
+
+header.shrink #upload-button {
+    top: 0.5rem; /* Adjusted positioning for shrink */
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+}
+
+/* Ensure the dashboard button is positioned relative to the header */
+#dashboard-button {
+    position: absolute;
+    top: 5rem;
+    left: 5rem;
+    background-color: #1f1f1f;
+    color: white;
+    border: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; /* Smooth transitions */
+}
+
+header.shrink #dashboard-button {
+    opacity: 0; /* Make it invisible */
+    visibility: hidden; /* Ensure it’s not interactable */
+    pointer-events: none; /* Disable clicks */
+}
+
 
 @media (max-width: 768px) {
     #upload-button {
