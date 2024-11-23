@@ -50,30 +50,42 @@ function displayLevels(levels) {
 }
 
 // Change the displayed image in modal
-function navigateModalImage(event, levelId, direction) {
+function navigateModalImage(event, id, direction) {
     event.stopPropagation();
-    
+
     const modalImageWrapper = document.querySelector('.modal-image-wrapper');
     const img = modalImageWrapper.querySelector('img');
     const indicators = modalImageWrapper.querySelectorAll('.indicator');
-    const currentIndex = parseInt(img.dataset.currentIndex);
-    const level = levels.find(l => l.id === levelId);
-    const images = level.images || [{ url: level.thumbnail?.url }];
-    
+    const currentIndex = parseInt(img.dataset.currentIndex, 10);
+
+    const isGallery = levels.some(level => level.id === id);
+    const item = isGallery 
+        ? levels.find(level => level.id === id) 
+        : submissions.find(submission => submission.id === id);
+
+    if (!item) {
+        console.error('Item not found for navigation:', id);
+        return;
+    }
+
+    const images = item.images || [{ url: item.thumbnail?.url || '../images/level1.png' }];
+    const totalImages = images.length;
+
     let newIndex;
     if (direction === 'next') {
-        newIndex = (currentIndex + 1) % images.length;
-    } else {
-        newIndex = (currentIndex - 1 + images.length) % images.length;
+        newIndex = (currentIndex + 1) % totalImages;
+    } else if (direction === 'prev') {
+        newIndex = (currentIndex - 1 + totalImages) % totalImages;
     }
-    
-    img.src = images[newIndex].url || '../images/level1.png';
+
+    img.src = images[newIndex]?.url || '../images/level1.png';
     img.dataset.currentIndex = newIndex;
 
     indicators.forEach((indicator, index) => {
         indicator.classList.toggle('active', index === newIndex);
     });
 }
+
 
 window.onclick = function (event) {
     if (event.target == document.getElementById('modal')) {
@@ -307,6 +319,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function openDashboardModal(submission) {
     const modal = document.getElementById('modal');
 
+    const images = submission.images || [{ url: submission.thumbnail?.url || '../images/level1.png' }];
+    const hasMultipleImages = images.length > 1;
+
     const modalContent = modal.querySelector('.modal-content');
     modalContent.innerHTML = `
         <span class="close" onclick="closeModal()">×</span>
@@ -316,14 +331,37 @@ function openDashboardModal(submission) {
         <p id="modal-difficulty"><span class="level-meta-title">Difficulty:</span> ${capitalizeWords(submission.difficulty || 'Unknown')}</p>
         <p id="modal-id"><span class="level-meta-title">Level ID:</span> ${submission.id || 'Unknown'}</p>
         
-        <img id="modal-image" src="${submission.thumbnail?.url || '../images/level1.png'}" 
-             alt="${submission.title || 'No title available'}">
+        <div class="divider"></div>
+        
+        <div class="modal-image-container">
+            ${hasMultipleImages ? `
+                <button class="nav-arrow left" onclick="navigateModalImage(event, '${submission.id}', 'prev')">←</button>
+                <button class="nav-arrow right" onclick="navigateModalImage(event, '${submission.id}', 'next')">→</button>
+            ` : ''}
+            <div class="modal-image-wrapper">
+                <img id="modal-image" 
+                     src="${images[0].url || '../images/level1.png'}" 
+                     alt="${submission.title || 'No title available'}"
+                     data-current-index="0"
+                     data-level-id="${submission.id}">
+                ${hasMultipleImages ? `
+                    <div class="image-indicators">
+                        ${images.map((_, index) => `
+                            <span class="indicator ${index === 0 ? 'active' : ''}" 
+                                  data-index="${index}"></span>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            </div>
+        </div>
+        
+        <div class="divider"></div>
         
         <p id="modal-video">
             ${submission.videoLink
-            ? `Video link: <a href="${submission.videoLink}" target="_blank" rel="noopener noreferrer">${submission.videoLink}</a>`
-            : 'Video link: None'
-        }
+                ? `Video link: <a href="${submission.videoLink}" target="_blank" rel="noopener noreferrer">${submission.videoLink}</a>`
+                : 'Video link: None'
+            }
         </p>
 
         <div class="modal-actions">
@@ -338,6 +376,7 @@ function openDashboardModal(submission) {
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
 }
+
 
 async function deleteSubmission(levelId) {
     if (!confirm("Are you sure you want to delete this submission? This action cannot be undone.")) {
