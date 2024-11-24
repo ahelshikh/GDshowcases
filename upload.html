@@ -17,7 +17,7 @@
         </div>
     </nav>
     <header>
-        <h1>Upload Your Level/Layout</h1>
+        <h1>Upload Your Level</h1>
     </header>
 
     <main class="upload-page">
@@ -44,6 +44,12 @@
 
                 <input type="radio" id="layout" name="type" value="layout" required onclick="toggleVideoRequirement()">
                 <label for="layout">Layout</label>
+
+                <input type="radio" id="platformer" name="type" value="platformer" required onclick="toggleVideoRequirement()">
+                <label for="platformer">Platformer</label>
+
+                <input type="radio" id="challenge" name="type" value="challenge" required onclick="toggleVideoRequirement()">
+                <label for="challenge">Challenge</label>
             </div>
 
             <label for="title">Level Title:</label>
@@ -98,7 +104,7 @@
 
             if (isLayout) {
                 videoInput.required = true;
-                videoLabel.textContent = "YouTube Video Link (required):";
+                videoLabel.textContent = "YouTube Video Link (required for layouts):";
             } else {
                 videoInput.required = false;
                 videoLabel.textContent = "YouTube Video Link (optional):";

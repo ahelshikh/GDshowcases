@@ -33,6 +33,21 @@ header nav {
     margin-top: 1rem;
 }
 
+header nav button {
+    margin: 0 0.5rem; /* Reduce horizontal spacing between buttons */
+    padding: 0.75rem 1rem; /* Keep padding for consistent size */
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    background-color: #24292e;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+header nav input {
+    margin-bottom: 0.3rem;
+}
+
 /* Active button styling for levels/layouts */
 header button.active {
     background-color: #53565a;

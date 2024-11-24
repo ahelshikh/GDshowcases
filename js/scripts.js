@@ -24,7 +24,7 @@ function displayLevels(levels) {
 
         const imageContainer = document.createElement('div');
         imageContainer.className = 'image-container';
-        
+
         const imageWrapper = document.createElement('div');
         imageWrapper.className = 'image-wrapper';
         imageWrapper.innerHTML = `
@@ -45,7 +45,7 @@ function displayLevels(levels) {
                 <p class="level-meta"><span class="level-meta-title">ID:</span> ${level.id}</p>
             </div>
         `;
-        
+
         gallery.appendChild(levelCard);
     });
 }
@@ -61,8 +61,8 @@ function navigateModalImage(event, id, direction) {
     const currentIndex = parseInt(img.dataset.currentIndex, 10);
 
     const isGallery = levels.some(level => level.id === id);
-    const item = isGallery 
-        ? levels.find(level => level.id === id) 
+    const item = isGallery
+        ? levels.find(level => level.id === id)
         : submissions.find(submission => submission.id === id);
 
     if (!item) {
@@ -148,8 +148,11 @@ function filterGallery(type) {
         document.querySelector('button[onclick="filterGallery(\'level\')"]').classList.add('active');
     } else if (type === 'layout') {
         document.querySelector('button[onclick="filterGallery(\'layout\')"]').classList.add('active');
+    } else if (type === 'platformer') {
+        document.querySelector('button[onclick="filterGallery(\'platformer\')"]').classList.add('active');
+    } else if (type === 'challenge') {
+        document.querySelector('button[onclick="filterGallery(\'challenge\')"]').classList.add('active');
     }
-
     const filteredLevels = levels.filter(level => level.type === type && level.status === 'accepted');
     displayLevels(filteredLevels);
 }
@@ -215,9 +218,9 @@ function openGalleryModal(level) {
         
         <p id="modal-video">
             ${level.videoLink
-                ? `Video link: <a href="${level.videoLink}" target="_blank" rel="noopener noreferrer">${level.videoLink}</a>`
-                : 'Video link: None'
-            }
+            ? `Video link: <a href="${level.videoLink}" target="_blank" rel="noopener noreferrer">${level.videoLink}</a>`
+            : 'Video link: None'
+        }
         </p>
     `;
 
@@ -235,7 +238,7 @@ loadSubmissions();
 
 async function loadSubmissions() {
     const submissionList = document.getElementById('submission-list');
-    if (!submissionList) return; 
+    if (!submissionList) return;
 
     try {
         console.log('Fetching submissions...');
@@ -309,7 +312,7 @@ function filterRejected() {
 document.addEventListener('DOMContentLoaded', () => {
     const galleryElement = document.getElementById('gallery');
     const submissionListElement = document.getElementById('submission-list');
-    
+
     if (galleryElement) {
         loadLevels();
     }
@@ -362,9 +365,9 @@ function openDashboardModal(submission) {
         
         <p id="modal-video">
             ${submission.videoLink
-                ? `Video link: <a href="${submission.videoLink}" target="_blank" rel="noopener noreferrer">${submission.videoLink}</a>`
-                : 'Video link: None'
-            }
+            ? `Video link: <a href="${submission.videoLink}" target="_blank" rel="noopener noreferrer">${submission.videoLink}</a>`
+            : 'Video link: None'
+        }
         </p>
 
         <div class="modal-actions">
@@ -394,7 +397,7 @@ async function deleteSubmission(levelId) {
 
         if (response.ok) {
             alert('Submission deleted successfully.');
- 
+
             loadSubmissions();
         } else {
             const error = await response.json();
@@ -493,8 +496,8 @@ function initializeImageUpload() {
             newFiles.forEach(file => validateAndAddFile(file));
         }
 
-        updateFileInput(); 
-        updatePreviews(); 
+        updateFileInput();
+        updatePreviews();
     }
 
     function validateAndAddFile(file) {
@@ -511,18 +514,18 @@ function initializeImageUpload() {
     function updateFileInput() {
         const dt = new DataTransfer();
         selectedFiles.forEach(file => dt.items.add(file));
-        imageInput.files = dt.files; 
+        imageInput.files = dt.files;
     }
 
     function updatePreviews() {
         imagePreviewContainer.innerHTML = '';
         Array.from(selectedFiles).forEach(file => {
             const reader = new FileReader();
-            
+
             reader.onload = function (e) {
                 const preview = document.createElement('div');
                 preview.className = 'image-preview';
-                preview.dataset.filename = file.name; 
+                preview.dataset.filename = file.name;
                 preview.innerHTML = `
                     <img src="${e.target.result}" alt="Preview">
                     <button type="button" class="remove-image" aria-label="Remove image">×</button>
@@ -546,62 +549,48 @@ function initializeImageUpload() {
 document.addEventListener('DOMContentLoaded', initializeImageUpload);
 
 async function validateForm() {
-  const form = document.getElementById('uploadForm');
-  const formData = new FormData(form);
+    const form = document.getElementById('uploadForm');
+    const formData = new FormData(form);
 
-  if (selectedFiles.size === 0) {
-    alert('Please select at least one image');
-    return false;
-  }
-
-  const isLayout = document.getElementById('layout').checked;
-  const videoLink = document.getElementById('video').value;
-  if (isLayout && !videoLink) {
-    alert('YouTube video link is required for layouts');
-    return false;
-  }
-
-  try {
-    const response = await fetch('/api/levels', {
-      method: 'POST',
-      body: formData
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Failed to submit level');
+    if (selectedFiles.size === 0) {
+        alert('Please select at least one image');
+        return false;
     }
 
-    const result = await response.json();
-    
-    if (result.success) {
-      alert('Level submitted successfully!');
-      form.reset();
-      selectedFiles.clear();
-      document.getElementById('image-previews').innerHTML = '';
-      return false; 
-    } else {
-      throw new Error(result.error || 'Failed to submit level');
+    const isLayout = document.getElementById('layout').checked;
+    const videoLink = document.getElementById('video').value;
+    if (isLayout && !videoLink) {
+        alert('YouTube video link is required for layouts');
+        return false;
     }
-  } catch (error) {
-    console.error('Error submitting level:', error);
-    alert(`Failed to submit level: ${error.message}`);
+
+    try {
+        const response = await fetch('/api/levels', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to submit level');
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert('Level submitted successfully!');
+            form.reset();
+            selectedFiles.clear();
+            document.getElementById('image-previews').innerHTML = '';
+            return false;
+        } else {
+            throw new Error(result.error || 'Failed to submit level');
+        }
+    } catch (error) {
+        console.error('Error submitting level:', error);
+        alert(`Failed to submit level: ${error.message}`);
+        return false;
+    }
+
     return false;
-  }
-  
-  return false; 
-}
-
-function toggleVideoRequirement() {
-  const videoInput = document.getElementById('video');
-  const videoLabel = document.getElementById('videoLabel');
-  const isLayout = document.getElementById('layout').checked;
-
-  if (isLayout) {
-    videoInput.required = true;
-    videoLabel.textContent = 'YouTube Video Link (required for layouts):';
-  } else {
-    videoInput.required = false;
-    videoLabel.textContent = 'YouTube Video Link (optional):';
-  }
 }

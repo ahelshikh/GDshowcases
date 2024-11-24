@@ -63,7 +63,7 @@ const levelSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['level', 'layout'],
+    enum: ['level', 'layout', 'platformer', 'challenge'],
     required: true,
     index: true
   },
