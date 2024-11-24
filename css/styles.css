@@ -4,6 +4,7 @@ body {
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
+    padding-top: 3.5rem;
     color: #333;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -17,13 +18,13 @@ header {
     padding: 1.5rem 2rem;
     text-align: center;
     font-size: 2rem;
-    position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     will-change: transform, height;
     min-height: 4rem;
-    transition: all 0.3s ease-in-out; /* Smooth transition */
+    transition: all 0.3s ease-in-out;
+    /* Smooth transition */
 }
 
 header nav {
@@ -76,7 +77,81 @@ header input:focus {
     box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
 }
 
-/* upload page */
+#upload-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #515d68;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    max-width: 20%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#upload-button:hover {
+    background-color: #5a6268;
+}
+
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #1f1f1f;
+    padding: 0.75rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3rem;
+    z-index: 2000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: inherit;
+}
+
+.nav-brand {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-links a:hover {
+    opacity: 0.5;
+}
+
+.nav-links .fa-arrow-up {
+    font-size: 1.5rem;
+}
+
+.nav-links a:has(.fa-arrow-up) {
+    font-size: 1.3rem;
+}
+
+#top-button {
+    margin-right: 7rem;
+    background-color: #515d68;
+}
+
 .upload-page main {
     padding: 2rem;
     display: flex;
@@ -96,7 +171,7 @@ header input:focus {
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border: 1px solid #dee2e6;
-    
+
 }
 
 .form-title {
@@ -124,7 +199,7 @@ input[type="text"],
 input[type="url"],
 input[type="file"],
 button,
-input[type="radio"] + label {
+input[type="radio"]+label {
     font-size: 1rem;
     width: 100%;
     padding: 0.75rem;
@@ -149,7 +224,7 @@ input[type="radio"]:focus {
     outline: none;
 }
 
-input[type="radio"] + label {
+input[type="radio"]+label {
     margin-right: 2rem;
     display: inline-block;
     font-size: 1rem;
@@ -223,7 +298,7 @@ input[type="file"] {
 
 .level-details .level-meta {
     margin: 0.2rem 0;
-    font-size: 1rem; 
+    font-size: 1rem;
     line-height: 1.2;
 }
 
@@ -382,7 +457,7 @@ input[type="file"] {
 .submission-card p {
     font-size: 1rem;
     margin: 0;
-    flex: 0 0 150px; 
+    flex: 0 0 150px;
     text-align: center;
 }
 
@@ -407,6 +482,21 @@ input[type="file"] {
 
 #upload-button:hover {
     background-color: #5a6268;
+}
+
+#dashboard-button {
+    position: absolute;
+    top: 7rem;
+    left: 0rem;
+    background-color: #1f1f1f;
+    color: white;
+    border: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+
 }
 
 #back-button {
@@ -609,48 +699,27 @@ select::after {
     margin: 1rem 0;
 }
 
-@media (max-width: 768px) {
-    header nav {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    header input {
-        margin-top: 1rem;
-    }
-
-    #gallery {
-        padding: 1.5rem;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .level-card {
-        width: 90%;
-    }
-}
-
 .image-previews {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin: 10px 0;
-  }
+}
 
-  .image-preview {
+.image-preview {
     position: relative;
     width: 150px;
     height: 150px;
-  }
+}
 
-  .image-preview img {
+.image-preview img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 4px;
-  }
+}
 
-  .remove-image {
+.remove-image {
     position: absolute;
     top: -8px;
     right: -8px;
@@ -664,9 +733,9 @@ select::after {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
 
-  /* Image container styles */
+/* Image container styles */
 .image-container {
     position: relative;
     width: 100%;
@@ -715,7 +784,7 @@ select::after {
 /* The dropdown select element */
 .dropdown-container select {
     width: 100%;
-    padding-right: 2rem; 
+    padding-right: 2rem;
     height: 100%;
     font-size: 1rem;
     border: 1px solid #ced4da;
@@ -902,7 +971,7 @@ select::after {
         height: 32px;
         font-size: 16px;
     }
-    
+
     .indicator {
         width: 6px;
         height: 6px;
@@ -912,6 +981,7 @@ select::after {
 body {
     overflow-x: hidden;
 }
+
 #upload-button {
     max-width: 100px;
     font-size: 0.75rem;
@@ -936,41 +1006,52 @@ body {
 
 .level-details .level-title {
     font-size: 1.6rem;
-    margin: 0.2rem 0; /* Reduced margin */
+    margin: 0.2rem 0;
+    /* Reduced margin */
 }
 
 header.shrink {
-    padding: 0.5rem 2rem; /* Reduced padding */
-    font-size: 1.5rem; /* Reduced font size for header */
+    padding: 0.5rem 2rem;
+    /* Reduced padding */
+    font-size: 1.5rem;
+    /* Reduced font size for header */
     min-height: 3rem;
 }
 
 header h1 {
-    transition: font-size 0.3s ease-in-out, margin 0.3s ease-in-out; /* Smooth title change */
+    transition: font-size 0.3s ease-in-out, margin 0.3s ease-in-out;
+    /* Smooth title change */
 }
 
 header.shrink h1 {
-    font-size: 1.2rem; /* Title shrinks */
-    margin: 0; /* Remove extra spacing */
+    font-size: 1.2rem;
+    /* Title shrinks */
+    margin: 0;
+    /* Remove extra spacing */
 }
 
 header nav {
-    transition: margin-top 0.3s ease-in-out; /* Smooth nav adjustment */
+    transition: margin-top 0.3s ease-in-out;
+    /* Smooth nav adjustment */
 }
 
 header.shrink nav {
-    margin-top: 0.5rem; /* Adjusted position for nav */
+    margin-top: 0.5rem;
+    /* Adjusted position for nav */
 }
 
 header button,
 header input {
-    transition: all 0.3s ease-in-out; /* Smooth resize for buttons and input */
+    transition: all 0.3s ease-in-out;
+    /* Smooth resize for buttons and input */
 }
 
 header.shrink button,
 header.shrink input {
-    padding: 0.4rem 1rem; /* Smaller buttons and search bar */
-    font-size: 0.9rem; /* Adjust font size */
+    padding: 0.4rem 1rem;
+    /* Smaller buttons and search bar */
+    font-size: 0.9rem;
+    /* Adjust font size */
 }
 
 #upload-button {
@@ -979,11 +1060,13 @@ header.shrink input {
     right: 1rem;
     font-size: 0.85rem;
     padding: 0.5rem 1rem;
-    transition: all 0.3s ease-in-out; /* Smooth positioning and sizing */
+    transition: all 0.3s ease-in-out;
+    /* Smooth positioning and sizing */
 }
 
 header.shrink #upload-button {
-    top: 0.5rem; /* Adjusted positioning for shrink */
+    top: 0.5rem;
+    /* Adjusted positioning for shrink */
     font-size: 0.75rem;
     padding: 0.4rem 0.8rem;
 }
@@ -1001,13 +1084,17 @@ header.shrink #upload-button {
     border-radius: 50%;
     padding: 0;
     cursor: pointer;
-    transition: all 0.3s ease-in-out; /* Smooth transitions */
+    transition: all 0.3s ease-in-out;
+    /* Smooth transitions */
 }
 
 header.shrink #dashboard-button {
-    opacity: 0; /* Make it invisible */
-    visibility: hidden; /* Ensure it’s not interactable */
-    pointer-events: none; /* Disable clicks */
+    opacity: 0;
+    /* Make it invisible */
+    visibility: hidden;
+    /* Ensure it’s not interactable */
+    pointer-events: none;
+    /* Disable clicks */
 }
 
 
@@ -1037,6 +1124,7 @@ header.shrink #dashboard-button {
         padding: 0.5rem 1rem;
     }
 }
+
 @media (max-width: 768px) {
     .upload-page form {
         margin: 0 auto;
@@ -1076,5 +1164,62 @@ header.shrink #dashboard-button {
         width: 95%;
         margin: 1rem;
         padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    header nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header input {
+        margin-top: 1rem;
+    }
+
+    #gallery {
+        padding: 1.5rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .level-card {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-nav {
+        padding: 0.5rem 1rem;
+        height: 2.5rem;
+        /* Slightly smaller height on mobile */
+    }
+
+    .nav-brand {
+        font-size: 1.1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+        /* Reduce gap between links */
+    }
+
+    .nav-links a {
+        font-size: 1rem;
+        gap: 0.3rem;
+        /* Reduce space between icon and text */
+    }
+
+    .nav-links i {
+        font-size: 0.9rem;
+    }
+
+    .nav-links .fa-arrow-up {
+        font-size: 1.3rem;
+    }
+
+    /* Adjust body padding for smaller header */
+    body {
+        padding-top: 3rem;
     }
 }

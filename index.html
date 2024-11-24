@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geometry Dash Gallery</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
+    <nav class="top-nav">
+        <div class="nav-brand">GDshowcases</div>
+        <div class="nav-links">
+            <a href="#" onclick="scrollToTop(); return false;"><i class="fas fa-arrow-up"></i>Top</a>
+            <a href="upload.html" onclick="location.href='upload.html'"><i class="fas fa-upload"></i>Upload</a>
+        </div>
+    </nav>
     <header>
         <h1>Geometry Dash Showcases</h1>
         <nav>
@@ -16,10 +26,8 @@
         </nav>
 
         <button id="dashboard-button" onclick="enterDashboard()"></button>
-
-        <button id="upload-button" onclick="location.href='upload.html'">Upload your Level</button>
     </header>
-    
+
     <script>
         // Function to prompt for a password before allowing access to the dashboard
         function enterDashboard() {
@@ -32,20 +40,27 @@
                 },
                 body: JSON.stringify({ password: password })
             })
-            .then(response => {
-                if (response.status === 200) {
-                    window.location.href = 'dashboard.html';
-                } else {
-                    alert('Incorrect password');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred');
+                .then(response => {
+                    if (response.status === 200) {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        alert('Incorrect password');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred');
+                });
+        }
+    </script>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         }
-        </script>
-
+    </script>
     <section id="gallery">
 
     </section>
@@ -63,4 +78,5 @@
         </div>
     </div>
 </body>
+
 </html>
