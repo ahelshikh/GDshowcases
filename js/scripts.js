@@ -171,31 +171,6 @@ function searchLevels() {
     displayLevels(filtered);
 }
 
-// Add scroll event to shrink the header dynamically
-let lastScrollY = 0;
-let debounceTimeout;
-
-document.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY > lastScrollY) {
-        // Scrolling down: change header immediately
-        header.classList.add('shrink');
-    } else if (currentScrollY < lastScrollY) {
-        // Scrolling up: debounce before changing the header back
-        clearTimeout(debounceTimeout);
-        debounceTimeout = setTimeout(() => {
-            if (currentScrollY <= 50) {
-                header.classList.remove('shrink');
-            }
-        }, 100); // Adjust delay for smoother effect
-    }
-
-    lastScrollY = currentScrollY;
-});
-
-
 // Open modal with level details
 function openGalleryModal(level) {
     const modal = document.getElementById('modal');
