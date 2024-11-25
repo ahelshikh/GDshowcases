@@ -1,7 +1,18 @@
 /* General body styles (applies to all pages) */
+
+:root {
+    --background-color: #f8f9fa;
+    --text-color: #333:
+}
+
+[data-theme="dark"] {
+    --background-color: black;
+    --text-color: #f8f9fa;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
+    background-color: var(--background-color);
     margin: 0;
     padding: 0;
     padding-top: 3.5rem;
@@ -9,6 +20,11 @@ body {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+}
+
+.error-message,
+.no-levels{
+    color: var(--text-color);
 }
 
 /* HEADER (Shared between pages) */
@@ -167,6 +183,25 @@ header input:focus {
     background-color: #515d68;
 }
 
+#theme-toggle .fa-sun {
+    display: none;
+}
+#theme-toggle .fa-moon {
+    display: inline;
+}
+
+[data-theme='dark'] #theme-toggle .fa-sun {
+    display: inline;
+}
+[data-theme='dark'] #theme-toggle .fa-moon {
+    display: none;
+}
+
+.nav-links .fa-sun,
+.nav-links .fa-moon {
+    font-size: 1.3rem;
+}
+
 .upload-page main {
     padding: 2rem;
     display: flex;
@@ -284,7 +319,7 @@ input[type="file"] {
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
-    background-color: #f1f1f1;
+    background-color: var(--background-color);
 }
 
 .level-card {
