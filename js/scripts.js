@@ -594,28 +594,4 @@ async function validateForm() {
     return false;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const themeToggleButton = document.getElementById('theme-toggle');
-    const themeText = themeToggleButton.querySelector('.theme-text');
-    const currentTheme = localStorage.getItem('theme');
-
-    if (currentTheme) {
-        document.body.setAttribute('data-theme', currentTheme);
-        themeText.textContent = currentTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
-    }
-
-    themeToggleButton.addEventListener('click', function(event) {
-        event.preventDefault();
-        let theme = document.body.getAttribute('data-theme');
-        if (theme === 'dark') {
-            document.body.setAttribute('data-theme', 'light');
-            themeText.textContent = 'Dark Mode';
-            localStorage.setItem('theme', 'light');
-        } else {
-            document.body.setAttribute('data-theme', 'dark');
-            themeText.textContent = 'Light Mode';
-            localStorage.setItem('theme', 'dark');
-        }
-    });
-});
 

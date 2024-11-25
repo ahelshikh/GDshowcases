@@ -2,12 +2,22 @@
 
 :root {
     --background-color: #f8f9fa;
-    --text-color: #333:
+    --text-color: #333;
+    --form-color: white;
+    --form-text: #333;
+    --form-input: white;
+    --form-border: #ced4da;
+    --submit-color: #24292e;
 }
 
 [data-theme="dark"] {
     --background-color: black;
     --text-color: #f8f9fa;
+    --form-color: #1f1f1f;
+    --form-text: #bdbdbd;
+    --form-input: #1d1d1d;
+    --form-border: #6c6d6e;
+    --submit-color: #2e2e2e;
 }
 
 body {
@@ -201,7 +211,7 @@ header input:focus {
 .nav-links .fa-moon {
     font-size: 1.3rem;
 }
-
+ /* Upload Page */
 .upload-page main {
     padding: 2rem;
     display: flex;
@@ -213,18 +223,18 @@ header input:focus {
 
 .upload-page form {
     position: relative;
-    background-color: white;
+    background-color: var(--form-color);
     padding: 2rem;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid #dee2e6;
-
+    border: 1px solid var(--form-border);
 }
 
 .form-title {
+    color: var(--text-color);
     font-size: 1.8rem;
     text-align: center;
     margin-bottom: 1.5rem;
@@ -242,7 +252,7 @@ form label {
     font-weight: bold;
     display: block;
     margin-top: 1rem;
-    color: #333;
+    color: var(--form-text);
 }
 
 input[type="text"],
@@ -255,8 +265,10 @@ input[type="radio"]+label {
     padding: 0.75rem;
     margin-top: 0.5rem;
     border-radius: 6px;
-    border: 1px solid #ced4da;
+    border: 1px solid var(--form-border);
     box-sizing: border-box;
+    color: var(--form-text);
+    background-color: var(--form-input);
 }
 
 input[type="radio"] {
@@ -278,7 +290,7 @@ input[type="radio"]+label {
     margin-right: 2rem;
     display: inline-block;
     font-size: 1rem;
-    color: #333;
+    color: var(--form-text);
     cursor: pointer;
     padding: 0;
     border: none;
@@ -292,7 +304,7 @@ label {
 
 /* Submit Button */
 button {
-    background-color: #24292e;
+    background-color: var(--submit-color);
     color: white;
     border: none;
     margin-top: 1.5rem;
@@ -637,8 +649,8 @@ input[type="file"] {
     right: 20px;
     width: 30px;
     height: 30px;
-    background-color: #1f1f1f;
-    color: white;
+    background-color: var(--text-color);
+    color: var(--background-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -651,7 +663,7 @@ input[type="file"] {
 .info-circle .tooltip-text {
     visibility: hidden;
     width: 250px;
-    background-color: #333;
+    background-color: var(--submit-color);
     color: #fff;
     text-align: left;
     border-radius: 5px;
@@ -843,6 +855,8 @@ select::after {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+    background-color: var(--form-input);
+    color: var(--form-text);
 }
 
 /* Arrow styling */
@@ -855,7 +869,6 @@ select::after {
     color: #555;
     pointer-events: none;
 }
-
 
 /* Navigation arrows */
 .nav-arrow {
@@ -1219,9 +1232,39 @@ header input {
         font-size: 0.9rem;
     }
 
-    .nav-links .fa-arrow-up {
-        font-size: 1.3rem;
+    #theme-toggle .fa-sun,
+    #theme-toggle .fa-moon {
+        font-size: 2rem;
     }
+    .nav-links .fa-upload {
+        font-size: 1.7rem;
+    }
+
+    .nav-links a[onclick*="scrollToTop"],
+    .nav-links .theme-text
+     {
+        display: none;
+    }
+
+    .nav-links a[href="upload.html"] {
+        margin-right: 1rem;
+        font-size: 0;
+    }
+
+    .nav-links {
+        gap: 2.5rem;
+    }
+
+   /* .nav-links .theme-text {
+        display: none;
+    }
+*/
+  /*  #theme-toggle .fa-sun,
+    #theme-toggle .fa-moon {
+        font-size: 1.5rem;
+    }
+*/
+
 
     /* Adjust body padding for smaller header */
     body {

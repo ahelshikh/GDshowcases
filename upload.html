@@ -13,6 +13,11 @@
     <nav class="top-nav">
         <div class="nav-brand">GDshowcases</div>
         <div class="nav-links">
+            <a href="#" id="theme-toggle">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+                <span class="theme-text">Dark Mode</span>
+            </a>
             <a href="index.html" onclick="location.href='index.html'"><i class="fas fa-house"></i>Home</a>
         </div>
     </nav>
@@ -45,10 +50,12 @@
                 <input type="radio" id="layout" name="type" value="layout" required onclick="toggleVideoRequirement()">
                 <label for="layout">Layout</label>
 
-                <input type="radio" id="platformer" name="type" value="platformer" required onclick="toggleVideoRequirement()">
+                <input type="radio" id="platformer" name="type" value="platformer" required
+                    onclick="toggleVideoRequirement()">
                 <label for="platformer">Platformer</label>
 
-                <input type="radio" id="challenge" name="type" value="challenge" required onclick="toggleVideoRequirement()">
+                <input type="radio" id="challenge" name="type" value="challenge" required
+                    onclick="toggleVideoRequirement()">
                 <label for="challenge">Challenge</label>
             </div>
 
@@ -95,7 +102,6 @@
             <button type="submit">Submit Level</button>
         </form>
     </main>
-
     <script>
         function toggleVideoRequirement() {
             const videoInput = document.getElementById('video');
@@ -184,8 +190,36 @@
                 }, 3000);
             }
         });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggleButton = document.getElementById('theme-toggle');
+            const themeText = themeToggleButton.querySelector('.theme-text');
+            const currentTheme = localStorage.getItem('theme');
 
+            if (currentTheme) {
+                document.body.setAttribute('data-theme', currentTheme);
+                themeText.textContent = currentTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeText.textContent = 'Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
 
+            themeToggleButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                let theme = document.body.getAttribute('data-theme');
+                if (theme === 'dark') {
+                    document.body.setAttribute('data-theme', 'light');
+                    themeText.textContent = 'Dark Mode';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.body.setAttribute('data-theme', 'dark');
+                    themeText.textContent = 'Light Mode';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        });
     </script>
 
 </body>
