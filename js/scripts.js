@@ -42,7 +42,6 @@ function displayLevels(levels) {
                 <p class="level-type">${capitalizeWords(level.type || 'Unknown')}</p>
                 <p class="level-meta"><span class="level-meta-title">By:</span> ${level.creator}</p>
                 <p class="level-meta"><span class="level-meta-title">Difficulty:</span> ${capitalizeWords(level.difficulty || 'Unknown')}</p>
-                <p class="level-meta"><span class="level-meta-title">ID:</span> ${level.id}</p>
             </div>
         `;
 

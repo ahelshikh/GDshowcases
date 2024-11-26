@@ -8,6 +8,9 @@
     --form-input: white;
     --form-border: #ced4da;
     --submit-color: #24292e;
+    --modal-text-light: #666;
+    --modal-text-dark: #444;
+    --modal-title: #333;
 }
 
 [data-theme="dark"] {
@@ -18,6 +21,9 @@
     --form-input: #1d1d1d;
     --form-border: #6c6d6e;
     --submit-color: #2e2e2e;
+    --modal-text-light: white;
+    --modal-text-dark: #bdbdbd;
+    --modal-title: #bdbdbd;
 }
 
 body {
@@ -359,9 +365,10 @@ input[type="file"] {
 }
 
 .level-details .level-meta {
-    margin: 0.2rem 0;
+    margin: 0.5rem 0;
     font-size: 1rem;
     line-height: 1.2;
+    color: var(--modal-text-light);
 }
 
 
@@ -440,7 +447,7 @@ input[type="file"] {
 }
 
 .modal-content {
-    background-color: #fff;
+    background-color: var(--form-color);
     padding: 2rem;
     border-radius: 12px;
     width: 90%;
@@ -459,7 +466,6 @@ input[type="file"] {
 .modal-content p {
     margin: 0.5rem 0;
     font-size: 1.1rem;
-    color: #333;
 }
 
 /* Add styles for modal image */
@@ -584,19 +590,14 @@ input[type="file"] {
 
 .level-meta-title {
     font-weight: bold;
-    color: #535353;
+    color: var(--modal-title);
     margin-right: 4px;
-}
-
-.level-details .level-meta {
-    font-size: 1rem;
-    margin: 0.2rem 0;
 }
 
 .modal-content h2 {
     font-size: 2rem;
     font-weight: 700;
-    color: #333;
+    color: var(--modal-title);
     margin-top: 0;
     margin-bottom: 0.8rem;
 }
@@ -604,20 +605,20 @@ input[type="file"] {
 .modal-content p {
     margin: 0.4rem 0;
     font-size: 1rem;
-    color: #555;
+    color: var(--modal-text-dark);
 }
 
 .modal-content #modal-creator,
 .modal-content #modal-difficulty,
 .modal-content #modal-id {
-    color: #666;
+    color: var(--modal-text-light);
     font-size: 1.3rem;
     font-weight: 500;
 }
 
 .modal-content .level-meta-title {
     font-weight: bold;
-    color: #444;
+    color: var(--modal-text-dark);
 }
 
 .modal-content #modal-video a {
@@ -940,7 +941,7 @@ select::after {
 /* Level card styles */
 .level-card {
     position: relative;
-    background-color: white;
+    background-color: var(--form-color);
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -1055,21 +1056,22 @@ body {
     text-align: left;
     margin: 0.5rem 0;
     font-size: 1.3rem;
-    color: #666;
+    color: var(--modal-text-light);
     font-weight: 500;
 }
 
 .level-details .level-type {
     text-align: center;
-    margin: 0.2rem 0;
-    font-size: 1.1rem;
-    color: #666;
+    margin: 0rem 0;
+    font-size: 1rem;
+    color: var(--modal-text-light);
     font-weight: 500;
 }
 
 .level-details .level-title {
     font-size: 1.6rem;
     margin: 0.2rem 0;
+    color: var(--modal-title);
     /* Reduced margin */
 }
 
@@ -1254,17 +1256,6 @@ header input {
     .nav-links {
         gap: 2.5rem;
     }
-
-   /* .nav-links .theme-text {
-        display: none;
-    }
-*/
-  /*  #theme-toggle .fa-sun,
-    #theme-toggle .fa-moon {
-        font-size: 1.5rem;
-    }
-*/
-
 
     /* Adjust body padding for smaller header */
     body {
